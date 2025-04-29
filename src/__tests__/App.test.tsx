@@ -1,43 +1,27 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+import { render, screen } from '@testing-library/react'
 import App from '../App'
-import { useCounterStore } from '../store/useCounterStore'
+import { useTodoStore } from '../store/useTodoStore'
+
+// Mock the TodoList component to simplify App tests
+vi.mock('../components/TodoList', () => ({
+  TodoList: () => <div data-testid="todo-list">TodoList Component</div>
+}))
 
 describe('App', () => {
   beforeEach(() => {
     // Reset the store before each test
-    useCounterStore.setState({ count: 0 })
+    const { setState } = useTodoStore
+    setState({ todos: [] })
   })
 
-  it('renders the app with initial count of 0', () => {
+  it('renders the app with the correct title', () => {
     render(<App />)
-    expect(screen.getByText('Count: 0')).toBeInTheDocument()
+    expect(screen.getByText('Todo List')).toBeInTheDocument()
   })
 
-  it('increments the count when the increment button is clicked', () => {
+  it('renders the TodoList component', () => {
     render(<App />)
-    const incrementButton = screen.getByText('Increment')
-    fireEvent.click(incrementButton)
-    expect(screen.getByText('Count: 1')).toBeInTheDocument()
-  })
-
-  it('decrements the count when the decrement button is clicked', () => {
-    // First set count to 5
-    useCounterStore.setState({ count: 5 })
-    
-    render(<App />)
-    const decrementButton = screen.getByText('Decrement')
-    fireEvent.click(decrementButton)
-    expect(screen.getByText('Count: 4')).toBeInTheDocument()
-  })
-
-  it('resets the count when the reset button is clicked', () => {
-    // First set count to 5
-    useCounterStore.setState({ count: 5 })
-    
-    render(<App />)
-    const resetButton = screen.getByText('Reset')
-    fireEvent.click(resetButton)
-    expect(screen.getByText('Count: 0')).toBeInTheDocument()
+    expect(screen.getByTestId('todo-list')).toBeInTheDocument()
   })
 })
