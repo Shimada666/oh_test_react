@@ -2,6 +2,16 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Python Hello World Program
+
+This repository also includes a simple Python Hello World program. To run it, use the following command:
+
+```bash
+python3 hello_world.py
+```
+
+The program demonstrates basic Python functionality, including printing text and using loops.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
