@@ -54,14 +54,14 @@ export function TodoList() {
 
   return (
     <div className="w-full max-w-md mx-auto pixel-art">
-      <div className="mb-6 flex w-3/4">
+      <div className="mb-6 flex">
         <input
           type="text"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="What needs to be done?"
-          className="flex-grow px-4 py-2 border-2 border-black bg-white text-black pixel-input"
+          className="w-2/3 px-4 py-2 border-2 border-black bg-white text-black pixel-input"
           data-testid="new-todo-input"
         />
         <button
