@@ -6,6 +6,7 @@ export interface Todo {
   text: string
   completed: boolean
   createdAt: number
+  completedAt?: number
 }
 
 interface TodoState {
@@ -20,7 +21,27 @@ interface TodoState {
 export const useTodoStore = create<TodoState>()(
   persist(
     (set) => ({
-      todos: [],
+      todos: [
+  {
+    id: crypto.randomUUID(),
+    text: 'Learn React',
+    completed: false,
+    createdAt: Date.now()
+  },
+  {
+    id: crypto.randomUUID(),
+    text: 'Master Zustand',
+    completed: true,
+    createdAt: Date.now(),
+    completedAt: Date.now()
+  },
+  {
+    id: crypto.randomUUID(),
+    text: 'Build pixel art app',
+    completed: false,
+    createdAt: Date.now()
+  }
+],
       
       addTodo: (text) => 
         set((state) => ({
@@ -38,7 +59,7 @@ export const useTodoStore = create<TodoState>()(
       toggleTodo: (id) =>
         set((state) => ({
           todos: state.todos.map((todo) =>
-            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            todo.id === id ? { ...todo, completed: !todo.completed, completedAt: !todo.completed ? Date.now() : undefined } : todo
           ),
         })),
       
